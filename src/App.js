@@ -1,10 +1,15 @@
 import React from 'react'
 import QuestionPage from './modules/ide/pages/QuestionPage'
 import { UserPage } from './modules/user/pages/UserPage'
+import  DashboardPage from './modules/dashboard/pages/DashboardPage'
+import "./index.css"
+import "./dashboard.css"
 
 function App() {
   return (
-    <UserPage />
+    // <QuestionPage />
+    // <UserPage/>
+    <DashboardPage/>
   )
 }
 

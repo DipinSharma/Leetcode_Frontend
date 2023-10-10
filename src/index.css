@@ -1,13 +1,101 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+  color: rgb(233, 231, 231);
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.parentDiv{
+  height: 100vh;
+  max-height: calc(100vh - 64px);   
+}
+.parentDivRight{
+  height: 100vh;
+  max-height: calc(100vh - 69px);
+}
+.leftSide{
+  margin: 6px; 
+  margin-right:3px;
+  height: 100%;
+  max-height: calc(100% - 12px);  
+  border: 1px solid black;
+  border-radius: 15px;
+  overflow: hidden;
+  /* margin: 10px; */
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.description{
+  height: 100vh;
+  max-height: calc(100vh - 144px);   
+  overflow-y: auto;
+}
+.description::-webkit-scrollbar{
+  background-color: rgba(255, 255, 255, 0.16);
+  width: 13px;
+}
+.description::-webkit-scrollbar-thumb{
+  background-color: rgba(255, 255, 255, 0.249);
+}
+.leftSide img{
+  height: 12rem;
+  width: auto;
+}
+.leftSide .toolbar{
+  /* background-color: red; */
+  margin:0;
+}
+
+.rightSide .top{
+  border: 0.1px solid black;
+  height: 100%;
+  overflow-y: hidden;
+  /* padding: 5px;
+  padding-left: 3px; */
+  background-color: rgba(255, 255, 255, 0.16);
+  /* max-height: (100%-200px); */
+  margin-left: 3px;
+  margin-right: 5px;
+  margin-top: 5px;
+  border-radius: 15px;
+}
+.rightSide .bottom{
+  height:100%;
+  background-color: rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 5px;
+  margin-left: 3px;
+  margin-right: 5px;
+}
+.controls{
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  position: absolute;
+  bottom: 5px;
+  left: 3px;
+  right: 5px;
+  z-index: 2;
+  background-color:rgb(59, 56, 56);
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+
+.resultArea{
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.249);
+  height: 100%;
+  color: white;
+}
+.timer{
+  background-color: rgba(255, 255, 255, 0.249);
 }
