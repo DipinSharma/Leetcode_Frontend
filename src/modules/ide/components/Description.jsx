@@ -1,45 +1,55 @@
-import { Typography } from "@mui/material";
+import { Skeleton, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import React, { useEffect, useState } from "react";
 import { Example } from "./Example";
 import { apiClient } from "../../../shared/services/api-client";
+import { useParams } from "react-router-dom";
+import { useDetails } from "../../../shared/context/questionContext";
 
 export const Description = () => {
-  const [details, setDetails] = useState("");
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await apiClient.get(
-          "http://localhost:1234/problems/Largest%20Rectangle%20in%20Histogram"
-        );
-        setDetails(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
+  const { details } = useDetails();
+
 
   return (
     <>
-      <Box className="description">
-        <Typography variant="h4">{`${details && details.number + "."} ${
-          details && details.name
-        }`}</Typography>
-        <Typography variant="p">{`${
-          details && details.description
-        }`}</Typography>
-        {details &&
+      <Box className="description" sx={{ padding: "20px" }}>
+        {/* {details&&<Skeleton variant="rectangular" width={"100%"} height={118} />} */}
+        <Typography variant="h4">{details ? `${details && details.number + "."} ${details.name}` :
+          <>
+            <Skeleton sx={{ bgcolor: "grey" }} type={"wave"} />
+          </>
+        }</Typography>
+
+        <Typography variant="p">{details ? `${details.description}` :
+          <>
+            <br />
+            <Skeleton sx={{ bgcolor: "grey" }} type={"wave"} />
+            <Skeleton sx={{ bgcolor: "grey" }} type={"wave"} width={"85%"} />
+            <Skeleton sx={{ bgcolor: "grey" }} type={"wave"} width={"70%"} />
+            <br />
+          </>
+        }</Typography>
+        {details ?
           details.examples.map((example, index) => (
             <Example
               key={index}
-              no={index}
+              no={index + 1}
               src={example.img}
               Input={example.input}
               Output={example.output}
               Explanation={example.explanation}
             />
-          ))}
+          )) :
+          <>
+            <Skeleton sx={{ bgcolor: "grey" }} type={"wave"} />
+            <Skeleton sx={{ bgcolor: "grey" }} type={"wave"} width={"85%"} />
+            <Skeleton sx={{ bgcolor: "grey" }} type={"wave"} width={"70%"} />
+            <br />
+            <Skeleton sx={{ bgcolor: "grey" }} type={"wave"} />
+            <Skeleton sx={{ bgcolor: "grey" }} type={"wave"} width={"85%"} />
+            <Skeleton sx={{ bgcolor: "grey" }} type={"wave"} width={"70%"} />
+          </>
+        }
       </Box>
       {/* {console.log(details)}; */}
       {/* <toolbar className="toolbar">

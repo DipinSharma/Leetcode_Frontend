@@ -4,30 +4,45 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Stopwatch from './StopWatch';
-export const  Header=()=>{
+import { useAuthContext } from '../hooks/useAuthContext';
+import { Button, Stack } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { useLogout } from '../hooks/useLogout';
+export const Header = () => {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
-
+  const {logout}=useLogout();
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const { user } = useAuthContext();
+  React.useEffect(() => {
+    setAuth(user && user.username);
+  }, [user]);
+  const handleChange = (event) => {
+    setAuth(!auth);
+    handleClose();
+    logout();
+  };
 
+  const navigate = useNavigate();  // Get the history object
+  const handleLoginClick = () => {
+      navigate('/login');
+  };
+  const handleSignInClick = () => {
+      navigate('/signIn');
+  };
+  const handleProfileOpen=()=>{
+      navigate(`/profile/${user.username}`);
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       {/* <FormGroup>
@@ -42,7 +57,7 @@ export const  Header=()=>{
           label={auth ? 'Logout' : 'Login'}
         />
       </FormGroup> */}
-      <AppBar position="static" sx={{backgroundColor:"rgba(255, 255, 255, 0.16)"}}>
+      <AppBar position="static" sx={{ backgroundColor: "rgba(255, 255, 255, 0.16)" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -51,14 +66,14 @@ export const  Header=()=>{
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            {/* <LeftDrawer/> */}
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Questions
+          <Link to={`/allQuestions`}style={{ textDecoration: "none", color: "inherit" }}>CodeCraft</Link>
           </Typography>
-          <Stopwatch/>
+          <Stopwatch />
           {auth && (
-            <div>
+            <div className='AuthPic'>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -84,10 +99,20 @@ export const  Header=()=>{
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                {user && (
+                  <MenuItem 
+                  // onClick={handleProfileOpen}
+                  >{auth}</MenuItem>
+                )}
+                <MenuItem onClick={handleChange}>Log Out</MenuItem>
               </Menu>
             </div>
+          )}
+          {!auth && (
+            <Stack direction="row" spacing={5} className='AuthPic'>
+              <Button variant='contained' onClick={handleLoginClick}>Login</Button>
+              <Button variant='contained' onClick={handleSignInClick}>Sign In</Button>
+            </Stack>
           )}
         </Toolbar>
       </AppBar>

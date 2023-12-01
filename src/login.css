@@ -1,0 +1,40 @@
+.Login{
+    display: flex !important;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.innerLogin{
+    display: flex;
+    flex-direction:column;
+    background-color: white;
+    padding: 6rem;
+    border-radius: 2rem;
+    row-gap: 1.8rem;
+    max-width: 300px;
+    
+}
+
+.error{
+    background-color: rgb(255, 115, 117);
+    border: 3px solid red;
+    padding: 0.7rem;
+    border-radius: 0.7rem;
+    font-weight: 700;
+    animation: flash 1.2s infinite;
+}
+@keyframes flash {
+    0%, 50%, 100% {
+        opacity: 1;
+      }
+      25%, 75% {
+        opacity: 0.9;
+      }
+}
+h3{
+    color: darkslategrey;
+}
+.loginParent{
+    background: linear-gradient(to right, #f2709c, #ff9472);
+}

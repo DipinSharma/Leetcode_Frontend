@@ -1,0 +1,13 @@
+.questionList{
+    background-color: #282828;
+    margin: 20px;
+    border-radius: 15px;
+    padding: 2rem;
+}
+.AuthPic{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+    align-items: center;
+    height: 100%;
+}

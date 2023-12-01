@@ -3,10 +3,12 @@ import SplitPane, { Pane } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
 import { Ide } from "./Ide";
 import Console from "./Console";
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import SplitButton from "./SelectLanguage";
+import { useDetails } from "../../../shared/context/questionContext";
 // import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 function RightSide() {
+  const {details}=useDetails();
   const [sizes, setSizes] = useState(["100%", "100%", "auto"]);
   const [isConsoleVisible, setIsConsoleVisible] = useState(true);
   const [prev, setPrev] = useState([]);
@@ -29,6 +31,11 @@ function RightSide() {
   const callIde = () => {
     if (IdeRef.current) {
       IdeRef.current.getCode();
+    }
+  };
+  const submitIde = () => {
+    if (IdeRef.current) {
+      IdeRef.current.submitCode();
     }
   };
   return (
@@ -60,14 +67,16 @@ function RightSide() {
         </Pane>
       </SplitPane>
       <div className="controls">
-        <Button variant="text" onClick={toggleConsoleVisibility}>
+        {details.success!="waiting" && <Button variant="text" onClick={toggleConsoleVisibility}>
           Console
-        </Button>
+        </Button>}
+        {details.success=="waiting" &&<CircularProgress color="inherit" />    
+          }
         <div className="Buttons">
-          <Button variant="outlined" onClick={callIde}>
+          <Button variant="outlined" onClick={callIde} disabled={details.success=="waiting"} sx={{marginRight:"20px" ,fontWeight:"900"}} color="error">
             Run
           </Button>
-          <Button variant="contained" color="success">
+          <Button variant="contained"onClick={callIde} color="success" disabled={details.success=="waiting"} sx={{marginRight:"10px",fontWeight:"900"}}>
             Submit
           </Button>
         </div>

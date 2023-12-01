@@ -8,7 +8,7 @@ export const Example = (props) => {
             <Typography variant="h5">
                 Example {props.no}:
             </Typography>
-            <img src={props.src} alt=""></img>
+            {props.src&&<img src={props.src} alt=""></img>}
             <Box sx={{opacity:"99%",backgroundColor:"rgba(101, 95, 95, 0.16)" ,borderRadius:"2vh",padding:"3vh"}}>
                 <Typography>
                     <Typography variant="p">
